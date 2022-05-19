@@ -1,0 +1,50 @@
+﻿
+@{ Layout = "~/Views/Shared/_ScreenLayout.cshtml"; }
+<div class="layout-login-centered-boxed__form">
+
+    <div class="card card-body">
+
+
+        @*<div class="alert alert-soft-success d-flex" role="alert">
+                <i class="material-icons mr-3">check_circle</i>
+                <div class="text-body">An email with password reset instructions has been sent to your email address, if it exists on our system.</div>
+            </div>*@
+        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-2 navbar-light">
+            <a asp-action="Index" asp-controller="Dashboard" class="navbar-brand text-center mb-2 mr-0" style="min-width: 0">
+                <img class="navbar-brand-icon" src="~/assets/images/logo.svg" width="43" alt="Shin Shout">
+                @*<img class="navbar-brand-icon" src="~/assets/images/CVBank.png" width="140" alt="Flat">*@
+            <span>VVM CV Bank</span>
+            </a>
+        </div>
+
+        <form asp-controller="Account" asp-action="Login" novalidate>
+            <div class="form-group">
+                <label class="text-label" for="email_2">Phone Number</label>
+                <div class="input-group input-group-merge">
+                    <input id="email_2" type="email" required="" class="form-control form-control-prepended" placeholder="123456789">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="far fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-label" for="email_2">Email Address:</label>
+                <div class="input-group input-group-merge">
+                    <input id="email_2" type="email" required="" class="form-control form-control-prepended" placeholder="john@doe.com">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="far fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-block btn-primary" type="submit">Submit</button>
+            </div>
+           
+        </form>
+    </div>
+</div>
+

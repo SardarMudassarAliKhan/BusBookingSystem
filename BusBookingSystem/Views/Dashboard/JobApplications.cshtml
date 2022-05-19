@@ -1,0 +1,138 @@
+﻿@model IEnumerable<CVBank.Dto.Dtos.JobApplicationResponseDto>
+@{ Layout = "~/Views/Shared/_MainLayout.cshtml"; }
+
+@section Styles{
+    <!-- Font Awesome FREE Icons -->
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
+
+    <!-- ion Range Slider -->
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <style>
+        .Disable {
+            pointer-events: none;
+        }
+    </style>
+}
+
+@if (TempData["UserMessage"] != null)
+{
+    <div class="alert alert-soft-success d-flex" role="alert">
+        <i class="material-icons mr-3">check_circle</i>
+        <div class="text-body">@TempData["UserMessage"].ToString()</div>
+    </div>
+}
+<div class="card card-form">
+    <div class="row no-gutters">
+
+        <div class="col-lg-12 col-xs-12 card-form__body">
+
+            <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+                <div class="row m-1">
+
+                    <div class="col-lg-2 col-xs-2">
+                        <a type="button" class="btn btn-primary" asp-action="AddJobApplication" asp-controller="Dashboard" enctype="multipart/form-data">
+                            <i class="material-icons mr-1">person_add</i> Add Application
+                        </a>
+                    </div>
+                </div>
+
+                <table class="table table-responsive mb-0 thead-border-top-0 mt-4" id="table_id">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Years of Experience</th>
+                            <th>Area</th>
+                            <th>Skills</th>
+                            <th>Current Salary</th>
+                            <th>Expected Salary</th>
+                            @*<th>Current Organization</th>
+                            <th>Current Designation</th>
+                            <th>Last University</th>
+                            <th>Last Degree</th>
+                            <th>Location</th>
+                            <th>Action</th>*@
+                        </tr>
+                    </thead>
+                    <tbody class="list" id="staff02">
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.Name</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.Email</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.Phone</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.YearsOfExperience</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.Area</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.Skills</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.CurrentSalary</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.ExpectedSalary</span>
+                                </td>
+                                @*<td>
+                                    <span class="js-lists-values-employee-name">@item.CurrentOrganization</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.CurrentDesignation</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.LastUniversity</span>
+                                </td>
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.LastDegree</span>
+                                </td>*@
+                                <td>
+                                    <span class="js-lists-values-employee-name">@item.Location</span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning" asp-action="UpdateJobApplication" asp-controller="Dashboard" asp-route-applicationId="@item.Id">
+                                        <i class="material-icons">edit</i>
+                                    </a>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-info" href="@item.CvUrl" target="_blank">
+                                        <i class="material-icons">pageview</i>
+                                    </a>&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        }
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
+    </script>
+}

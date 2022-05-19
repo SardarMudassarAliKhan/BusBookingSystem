@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\BBS.Common.csproj" />
+    <ProjectReference Include="..\BBS.Domain\BBS.Domain.csproj" />
+    <ProjectReference Include="..\BBS.Dto\BBS.Dto.csproj" />
+  </ItemGroup>
+
+</Project>

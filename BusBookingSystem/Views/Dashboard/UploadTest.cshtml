@@ -1,0 +1,100 @@
+﻿@model SingleFileUpload
+@{ Layout = "~/Views/Shared/_MainLayout.cshtml"; }
+
+@section Styles{
+    <!-- Simplebar -->
+    <!--<link type="text/css" href="~/assets/vendor/simplebar.min.css" rel="stylesheet">-->
+    <!-- App CSS -->
+    <!--<link type="text/css" href="~/assets/css/app.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/app.rtl.css" rel="stylesheet">-->
+    <!-- Material Design Icons -->
+    <!--<link type="text/css" href="~/assets/css/vendor-material-icons.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-material-icons.rtl.css" rel="stylesheet">-->
+    <!-- Font Awesome FREE Icons -->
+    <!--<link type="text/css" href="~/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">-->
+    <!-- ion Range Slider -->
+    <!--<link type="text/css" href="~/assets/css/vendor-ion-rangeslider.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">-->
+    <!-- Flatpickr -->
+    <!--<link type="text/css" href="~/assets/css/vendor-flatpickr.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-flatpickr.rtl.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-flatpickr-airbnb.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-flatpickr-airbnb.rtl.css" rel="stylesheet">-->
+    <!-- Quill Theme -->
+    <!--<link type="text/css" href="~/assets/css/vendor-quill.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-quill.rtl.css" rel="stylesheet">-->
+    <!-- Dropzone -->
+    <!--<link type="text/css" href="~/assets/css/vendor-dropzone.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-dropzone.rtl.css" rel="stylesheet">-->
+    <!-- Select2 -->
+    <!--<link type="text/css" href="~/assets/css/vendor-select2.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-select2.rtl.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/vendor/select2/select2.min.css" rel="stylesheet">-->
+    <link href="~/ezdz/jquery.ezdz.min.css" rel="stylesheet" />
+    @*<link href="~/ezdz/styles.css" rel="stylesheet" />*@
+    <style>
+        .ezdz-dropzone {
+            position: relative;
+            width: 450px;
+            height: 200px;
+            overflow: hidden;
+            font: bold 24px arial;
+            line-height: 200px;
+            color: lightgray;
+            text-align: center;
+            border: 10px dotted lightgray;
+            border-radius: 20px;
+            margin: auto auto;
+        }
+
+        .ezdz-accept {
+            color: gray !important;
+            border: 10px solid gray !important;
+        }
+
+        .ezdz-enter {
+            color: black !important;
+            border: 10px solid black !important;
+        }
+    </style>
+}
+<div class="card card-form">
+    <form enctype="multipart/form-data" asp-controller="Dashboard" asp-action="Upload" method="post" style="padding:20px;">
+        <input asp-for="FormFile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/xml">
+
+        <input type="submit">
+    </form>
+</div>
+@section Scripts{
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="~/ezdz/jquery.ezdz.min.js"></script>
+    <script>
+        $('[type="file"]').ezdz({
+            text: 'Drag or Drop a File',
+            validators: {
+            },
+            reject: function (file, errors) {
+                if (errors.mimeType) {
+                    alert(file.name + ' must be an XML Or CSV.');
+                }
+            }
+        });
+    </script>
+    <!-- App Settings (safe to remove) -->
+    <!--<script src="~/assets/js/app-settings.js"></script>-->
+    <!-- Flatpickr -->
+    <!--<script src="~/assets/vendor/flatpickr/flatpickr.min.js"></script>
+    <script src="~/assets/js/flatpickr.js"></script>-->
+    <!-- jQuery Mask Plugin -->
+    <!--<script src="~/assets/vendor/jquery.mask.min.js"></script>-->
+    <!-- Quill -->
+    <!--<script src="~/assets/vendor/quill.min.js"></script>
+    <script src="~/assets/js/quill.js"></script>-->
+    <!-- Dropzone -->
+    <!--<script src="~/assets/vendor/dropzone.min.js"></script>
+    <script src="~/assets/js/dropzone.js"></script>-->
+    <!-- Select2 -->
+    <!--<script src="~/assets/vendor/select2/select2.min.js"></script>
+    <script src="~/assets/js/select2.js"></script>-->
+}

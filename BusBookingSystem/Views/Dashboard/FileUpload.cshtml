@@ -1,0 +1,105 @@
+﻿@model FileUploadModel
+@{ Layout = "~/Views/Shared/_MainLayout.cshtml"; }
+
+@section Styles{
+    <link href="~/ezdz/jquery.ezdz.min.css" rel="stylesheet" />
+    <style>
+        .ezdz-dropzone {
+            position: relative;
+            width: 96%;
+            height: 300px;
+            overflow: hidden;
+            font: bold 24px arial;
+            /*line-height: 200px;*/
+            color: #454141;
+            text-align: center;
+            border: 2px dashed #ced4da;
+            border-radius: 20px;
+            margin: auto auto;
+        }
+
+        .ezdz-accept {
+            color: gray !important;
+            border: 10px solid gray !important;
+        }
+
+        .ezdz-enter {
+            color: black !important;
+            line-height:12;
+            border: 10px solid black !important;
+        }
+
+        .sourceDropdown {
+            position: relative;
+            width: 96%;
+            height: 70px;
+            overflow: hidden;
+            font: bold 24px arial;
+            color: lightgray;
+            text-align: center;
+            margin: auto auto;
+            margin-top: 20px;
+        }
+        .fileErrorBox {
+            position: relative;
+            width: 96%;
+            height: 26px;
+            overflow: hidden;
+            font: bold 24px arial;
+            color: lightgray;
+            text-align: center;
+            margin: auto auto;
+            margin-top: 20px;
+        }
+
+        .custom-select {
+            width: 450px;
+        }
+    </style>
+}
+
+<div class="card card-form">
+    <form enctype="multipart/form-data" asp-controller="Dashboard" asp-action="FileUpload" id="fileUploadForm" method="post" style="padding:20px;">
+        <div class="">
+            <input asp-for="FileUpload.FormFile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/xml">
+            <div class="form-group fileErrorBox">
+                <span asp-validation-for="FileUpload.FormFile" class="text-danger"></span>
+                </div>
+                <div class="form-group sourceDropdown">
+                    <select asp-for="FileUpload.Pipeline" asp-items="Model.Pipelines" class="custom-select">
+                        <option value="">Select Source Type</option>
+                        @*<option value="source1">Source 1</option>
+                    <option value="source2">Source 2</option>*@
+                    </select>
+                    <span asp-validation-for="FileUpload.Pipeline" class="text-danger"></span>
+                </div>
+            </div>
+        <button class="btn btn-primary upload-btn" style="margin: auto auto; margin-left: 46%;" type="submit">Upload</button>
+</form>
+</div>
+
+@section Scripts{
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="~/ezdz/jquery.ezdz.min.js"></script>
+    <script>
+        $('[type="file"]').ezdz({
+            text: ' <div class="mb-3" style="margin-top:100px;"><a href="" class="text-muted"><i class="fas fa-cloud-upload-alt" style="font-size: 50px;"></i></a></div>Drop files here or click to upload.',
+            validators: {
+            },
+            reject: function (file, errors) {
+                if (errors.mimeType) {
+                    alert(file.name + ' must be an XML Or CSV.');
+                }
+            }
+        });
+        $("#fileUploadForm").submit(function () {
+            if ($('form').valid()) {
+                $(".upload-btn").addClass("is-loading");
+            }
+        });
+    </script>
+    <!-- Unobtrusive Validations -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}

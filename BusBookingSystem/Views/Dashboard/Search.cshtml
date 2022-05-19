@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section Styles{
+    <!-- Font Awesome FREE Icons -->
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
+
+    <!-- ion Range Slider -->
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">
+    <link href="~/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <style>
+        .Disable {
+            pointer-events: none;
+        }
+    </style>
+}
+<div class="card card-form">
+    <div class="row no-gutters">
+
+        <div class="col-lg-12 col-xs-12 card-form__body">
+
+            <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+                <div class="row m-1">
+                    <div class="col-lg-10 col-xs-10">
+                        <div class="search-form search-form--light bootstrap-tagsinput">
+                            <input type="text" id="searchBox" class="form-control search" data-role="tagsinput" />
+                        </div>
+                        <span style="color:gray;">Please type key phrases like SQL, React, IT etc to search for related cv</span>
+
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <button type="button" onclick="ApplyFilters()" style="float:right;margin-top:5px;" class="btn btn-primary filter-btn btn-block">Filter</button>
+                    </div>
+                </div>
+
+                <table class="table mb-0 thead-border-top-0 mt-4">
+                    <thead>
+                        <tr>
+
+                            <th>File Name</th>
+                            <th>Locations</th>
+                            <th style="width: 200px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list" id="searchTable">
+
+
+                        @*<tr>
+
+                                <td>
+
+                                    <span class="js-lists-values-employee-name">second.csv</span>
+
+                                </td>
+                                <td>
+
+                                    <span class="js-lists-values-employee-name">second.csv</span>,
+                                    <span class="js-lists-values-employee-name">second.csv</span>
+
+                                </td>
+                                <td>
+                                    <a href="" class="text-muted"><i class="fas fa-download"></i></a>
+                                </td>
+                            </tr>*@
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <script src="~/js/bootstrap-tagsinput.js"></script>
+    <script>
+        var downloadUrl = "https://vvmcvbankstracc.blob.core.windows.net/pool/";
+        function ApplyFilters() {
+            var query = $("#searchBox").val() || "";
+            var settings = {
+                "url": "https://vvmcvbanksearch.search.windows.net/indexes/azureblob-index/docs?api-version=2020-06-30&search=" + query + "&%24select=metadata_storage_name%2Clocations&%24count=true",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "api-key": "E0A043EDCEF3A1C0248A5A31E88AEDED"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+                // var obj = JSON.parse(response);
+                console.log(response.value);
+                $('#searchTable tr').remove();
+                DrawTable(response)
+            });
+
+        }
+        function DrawTable(dataJson) {
+
+            if (dataJson.value.length !== 0) {
+                for (var i = 0; i < dataJson.value.length; i++) {
+
+                    $('<tr><td>' + '<span class="js-lists-values-employee-name">' +
+                        dataJson.value[i].metadata_storage_name + '</span>' +
+                        '</td><td>' + '<span class="js-lists-values-employee-name">' +
+                        dataJson.value[i].locations + '</span>' +
+                        '</td><td><a href ="' + downloadUrl + dataJson.value[i].metadata_storage_name + '" class= "text-muted" > <i class="fas fa-download"></i></a ></td ></tr >')
+                        .appendTo('#searchTable');
+
+
+
+                }
+            }
+            else {
+                $('<tr><td>No Records Found!</td>')
+                    .appendTo('#searchTable');
+            }
+
+        };
+
+
+    </script>
+}
+

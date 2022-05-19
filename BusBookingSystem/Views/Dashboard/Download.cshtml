@@ -1,0 +1,152 @@
+﻿@model CVBank.Models.DownloadViewModel
+@using Common.Helper;
+@{ Layout = "~/Views/Shared/_MainLayout.cshtml"; }
+
+@section Styles{
+    <!-- Font Awesome FREE Icons -->
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
+
+    <!-- ion Range Slider -->
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/vendor-ion-rangeslider.rtl.css" rel="stylesheet">
+<style>
+    .Disable {
+        pointer-events: none;
+    }
+</style>
+}
+<div class="card card-form">
+    <div class="row no-gutters">
+
+        <div class="col-lg-12 col-xs-12 card-form__body">
+
+            <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+                <div class="row m-1">
+                    <div class="col-lg-12 col-xs-12">
+                        <div class="search-form search-form--light">
+                            <input type="text" id="searchBox" class="form-control search" placeholder="File Name">
+                            <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                            <select id="pipeline" asp-items="Model.Pipelines" class="form-control custom-select">
+                                <option value="">Select Source Type</option>
+                                @*<option value="source1">Source 1</option>
+                                <option value="source2">Source 2</option>*@
+                            </select>
+                    </div>
+                    <div class="col-lg-3 col-xs-3">
+                        <input id="startDate" type="text" class="form-control" placeholder="Start Date" data-toggle="flatpickr" @*value="today"*@>
+                    </div>
+                    <div class="col-lg-3 col-xs-3">
+                        <input id="endDate" type="text" class="form-control" placeholder="End Date" data-toggle="flatpickr" @*value="today"*@>
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <button type="button" onclick="ApplyFilters()" style="float:right;margin-top:5px;" class="btn btn-primary filter-btn">Filter</button>
+                    </div>
+                </div>
+
+                <table class="table mb-0 thead-border-top-0 mt-4">
+                    <thead>
+                        <tr>
+
+                            <th>File Name</th>
+                            <th>Pipeline Name</th>
+                            <th>Created Date</th>
+                            <th>Status</th>
+                            <th style="width: 200px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list" id="staff02">
+                        <partial name="~/Views/Dashboard/PartialViews/_DownloadList.cshtml" model="Model.UserFiles" />
+                        
+                        @*<tr>
+
+            <td>
+
+                <span class="js-lists-values-employee-name">second.csv</span>
+
+            </td>
+
+            <td>
+                <a href="" class="text-muted"><i class="fas fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
+                <a href="" class="text-muted"><i class="fas fa-download"></i></a>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+
+                <span class="js-lists-values-employee-name">third.xml</span>
+
+            </td>
+
+            <td>
+                <a href="" class="text-muted"><i class="fas fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
+                <a asp-controller="Dashboard" asp-action="FileDownload" asp-route-sourcePath="OutputXML/part-00000-tid-7856793975594357309-e5f67e47-6858-449a-a484-b507e3c98d16-7-1-c000.csv" class="text-muted"><i class="fas fa-download"></i></a>
+            </td>
+        </tr>*@
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+    <script>
+    function ApplyFilters() {
+        $(".filter-btn").addClass("is-loading");
+        var searchBox = $("#searchBox").val();
+        var pipeline = $("#pipeline").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var filter = {
+            SearchBox: searchBox,
+            Pipeline: pipeline,
+            StartDate: startDate,
+            EndDate: endDate
+        };
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("FilterDownload","Dashboard")",
+            data: { filter:filter},
+            success: function (data) {
+                $("#staff02").html(data);
+                $(".filter-btn").removeClass("is-loading");
+            },
+            error: function (req, status, error) {
+                console.log(msg);
+            }
+        });
+        }
+
+        function DownloadFile(sourcePath) {
+            $.ajax(
+            {
+                url: '@Url.Action("FileDownload", "Dashboard")',
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                data: {
+                    sourcePath: sourcePath
+                },
+                type: "GET",
+                success: function () {
+                    @*window.location = '@Url.Action("FileDownload", "Dashboard", new { sourcePath = sourcePath })';*@
+                }
+            });
+        }
+
+        //$(document).ajaxSuccess(function () {
+        //    alert("An individual AJAX call has completed successfully");
+        //});
+        ////or...
+        //$(document).ajaxComplete(function () {
+        //    alert("ALL current AJAX calls have completed");
+        //});
+    </script>
+}
