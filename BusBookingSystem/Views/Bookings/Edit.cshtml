@@ -1,0 +1,77 @@
+﻿@model BBS.Domain.Data.Domain.Booking
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_BookerLayout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CustomerId" class="control-label"></label>
+                <input asp-for="CustomerId" class="form-control" />
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDateTime" class="control-label"></label>
+                <input asp-for="StartDateTime" class="form-control" />
+                <span asp-validation-for="StartDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnddateTim" class="control-label"></label>
+                <input asp-for="EnddateTim" class="form-control" />
+                <span asp-validation-for="EnddateTim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PickUpLocation" class="control-label"></label>
+                <input asp-for="PickUpLocation" class="form-control" />
+                <span asp-validation-for="PickUpLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DropLoaction" class="control-label"></label>
+                <input asp-for="DropLoaction" class="form-control" />
+                <span asp-validation-for="DropLoaction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TripId" class="control-label"></label>
+                <input asp-for="TripId" class="form-control" />
+                <span asp-validation-for="TripId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingStatus" class="control-label"></label>
+                <input asp-for="BookingStatus" class="form-control" />
+                <span asp-validation-for="BookingStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingType" class="control-label"></label>
+                <input asp-for="BookingType" class="form-control" />
+                <span asp-validation-for="BookingType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingCompany" class="control-label"></label>
+                <input asp-for="BookingCompany" class="form-control" />
+                <span asp-validation-for="BookingCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

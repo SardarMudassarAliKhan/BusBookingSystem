@@ -20,6 +20,8 @@ namespace CVBank.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Trips> Trips { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
     }
 }

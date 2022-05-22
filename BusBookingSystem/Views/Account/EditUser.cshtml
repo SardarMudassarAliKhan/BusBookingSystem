@@ -49,8 +49,11 @@
                             <label>Role</label>
                             <select asp-for="RoleName" style="width: 270px;" class="form-control">
                                 <option value="">Select Role</option>
-                                <option value="Administrator">Administrator</option>
-                                <option value="HR">HR</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Driver">Driver</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Booker">Booker</option>
+                                <option value="Finance">Finance</option>
                             </select>
                         </div>
                         <span asp-validation-for="RoleName" class="text-danger"></span>

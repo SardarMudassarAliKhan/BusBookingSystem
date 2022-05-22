@@ -6,7 +6,10 @@ namespace BusBookingSystem.ViewModes
 {
     public class DriverViewModel
     {
-        public Driver Driver { get; set; }
-        public ICollection<ApplicationUser> Users { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string Status { get; set; }
+        public string DriverType { get; set; }
+        public string Name { get; set; }
     }
 }

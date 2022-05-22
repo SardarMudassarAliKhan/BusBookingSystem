@@ -1,0 +1,77 @@
+﻿@model IEnumerable<BusBookingSystem.ViewModes.TripsVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BookerLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FromLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationMinHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationMaxHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate13Seat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate23Seat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate35Seat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate53Seat)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DurationMinHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DurationMaxHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate13Seat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate23Seat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate35Seat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate53Seat)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

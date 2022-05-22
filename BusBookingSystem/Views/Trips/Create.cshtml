@@ -1,0 +1,100 @@
+﻿@model BBS.Domain.Data.Domain.Trips
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_BookerLayout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {  
+       $.ajax({  
+           type: "GET",  
+           url: "/Trips/FromLocation",  
+           data: "{}",  
+           success: function (data) {  
+               var s = '<option value="-1">From Location</option>';  
+               for (var i = 0; i < data.length; i++) {
+                   console.log(data[i])
+                   s += '<option value="' + data[i].id+'">' + data[i].name +" "+data[i].address+ '</option>';  
+               }  
+               $("#FromLocation").html(s);  
+           }  
+       });  
+   }); 
+   $(document).ready(function () {  
+       $.ajax({  
+           type: "GET",  
+           url: "/Trips/ToLocation",  
+           data: "{}",  
+           success: function (data) {  
+               var s = '<option value="-1">To Loaction</option>';  
+               for (var i = 0; i < data.length; i++) {
+                   console.log(data[i])
+                   s += '<option value="' + data[i].id+'">' + data[i].name +" "+data[i].address+ '</option>';  
+               }  
+               $("#ToLocation").html(s);  
+           }  
+       });  
+   }); 
+</script>
+<h1>Create</h1>
+
+<h4>Trips</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FromLocation" class="control-label"></label>
+                <div class="form-group">
+                  <select class="form-control" asp-for="FromLocation" id="FromLocation" name="FromLocation"></select>  
+                  <span asp-validation-for="FromLocation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToLocation" class="control-label"></label>
+                <div class="form-group">
+                  <select class="form-control" asp-for="ToLocation" id="ToLocation" name="ToLocation"></select>  
+                  <span asp-validation-for="ToLocation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DurationMinHour" class="control-label"></label>
+                <input asp-for="DurationMinHour" class="form-control" />
+                <span asp-validation-for="DurationMinHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DurationMaxHour" class="control-label"></label>
+                <input asp-for="DurationMaxHour" class="form-control" />
+                <span asp-validation-for="DurationMaxHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate13Seat" class="control-label"></label>
+                <input asp-for="Rate13Seat" class="form-control" />
+                <span asp-validation-for="Rate13Seat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate23Seat" class="control-label"></label>
+                <input asp-for="Rate23Seat" class="form-control" />
+                <span asp-validation-for="Rate23Seat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate35Seat" class="control-label"></label>
+                <input asp-for="Rate35Seat" class="form-control" />
+                <span asp-validation-for="Rate35Seat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate53Seat" class="control-label"></label>
+                <input asp-for="Rate53Seat" class="form-control" />
+                <span asp-validation-for="Rate53Seat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
